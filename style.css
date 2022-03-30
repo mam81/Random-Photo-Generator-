@@ -1,10 +1,16 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300,400,700);
 
-:root {
-    --black: #130f0d;
-    --primary: #fd951f;
-    --primary-dark: #dd7b0c;
-    --white: #f0f0f9;
+
+html {
+    --black: #130F0D;
+    --white: #F0F0F9;
+    --blue: #1C4966; 
+    --gray: #808080; 
+    
+    
+    --bg: #F0F0F9;
+    --btn: #FC2E20;
+    --btn-hover: #E43D40;
 }
 
 * {
@@ -20,8 +26,8 @@
 body {
     height: 100vh;
 
-    background-color:  var(--black);
-    color: var(--white);
+    background-color:  var(--bg);
+    color: var(--black);
 
     display: flex;
     flex-direction: column;
@@ -33,13 +39,18 @@ main {
     width: 90vw;
 }
 
+.toggle {
+    margin: 30px;
+}
+
 button {
     width: 100%;
     
     color: var(--white);
 
     border: none;
-    background: var(--primary);
+    border-radius: 2px;
+    background: var(--btn);
 
     text-transform: uppercase;
     font-size: 2.4rem;
@@ -51,8 +62,9 @@ button {
     transition: 0.2s;
 }
 
+
 button:hover {
-    background: var(--primary-dark);
+    background: var(--btn-hover);
 }
 
 .image {
@@ -63,7 +75,7 @@ button:hover {
 .image.hover::after,
 .image.fav::after {
     content: ' \2605';
-    color: var(--primary);
+    color: var(--btn);
 
     position: absolute;
     top: 0;
@@ -80,4 +92,46 @@ img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+input[type=checkbox] {
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 52px;
+    height: 27px;
+    background: var(--gray);
+    float: right;
+    border-radius: 100px;
+    position: relative;
+}
+
+label::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--white);
+    border-radius: 90px;
+    transition: 0.3s;
+}
+
+input:checked + label {
+    background-color: var(--blue);
+}
+
+input:checked + label::after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+label:active::after {
+    width: 45px;
 }

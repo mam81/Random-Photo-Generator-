@@ -2,13 +2,16 @@
 let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 const imageContainer = document.querySelector('.image');
 const button = document.querySelector('button');
+const html = document.querySelector('html');
+const checkbox = document.querySelector('input[name=theme]');
+
 
 // events
 button.onclick = () => updateImage();
 
 imageContainer.onclick = () => updateAll();
 
-// methods
+// methods random photos generator
 function getState() {
     const imageSource = document.querySelector('.image img').src;
     const index = favorites.indexOf(imageSource);
@@ -50,6 +53,42 @@ async function getExternalImage() {
 
     imageContainer.innerHTML = `<img src="${response.url}" >` ;
 }
+
+// method light/dark mode
+
+const getStyle = (element, style) => window.getComputedStyle(element).getPropertyValue(style)
+
+
+const initialColors = {
+    bg: getStyle(html, "--bg"),
+    btn: getStyle(html, "--btn"),
+    btnHover: getStyle(html, "--btn-hover"),
+}
+
+const darkMode = {
+    bg: "#130F0D",
+    btn: "#FD951F",
+    btnHover: "#DD7B0C"
+}
+
+const transformKey = key => "--" + key.replace(/([A-Z])/, "-$1").toLowerCase();
+
+const changeColors = (colors) => {
+    Object.keys(colors).map(key => {
+        html.style.setProperty(transformKey(key), colors[key])
+    })
+
+}
+
+// event light/dark mode
+
+checkbox.addEventListener("change", ({target}) => {
+    target.checked ? changeColors(darkMode) : changeColors(initialColors);
+})
+
+
+
+
 
 
 
